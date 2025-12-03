@@ -1,0 +1,12 @@
+package com.doug.pointofsale.payload.response;
+
+import com.doug.pointofsale.payload.dto.UserDto;
+import lombok.Data;
+
+@Data
+public class AuthResponse {
+    private String jwt;
+    private String message;
+    private UserDto user;
+
+}
