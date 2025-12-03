@@ -3,6 +3,7 @@ package com.doug.pointofsale.payload.dto;
 import com.doug.pointofsale.domain.UserRole;
 import lombok.Data;
 
+
 import java.time.LocalDate;
 
 @Data
