@@ -12,11 +12,14 @@ import com.doug.pointofsale.service.AuthService;
 import com.doug.pointofsale.service.CustomUserImplementation;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -35,8 +38,37 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse login(String username, String password) {
-        return null;
+    public AuthResponse login(UserDto userDto) throws UserException {
+        String email = userDto.getEmail();
+        String password = userDto.getPassword();
+
+        Authentication authentication = authenticate(email,password);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        String role = authorities.iterator().next().getAuthority();
+        String jwt = jwtProvider.generateToken(authentication);
+        User user = userRepository.findByEmail(email);
+        user.setLastLoginAt(LocalDate.now());
+        userRepository.save(user);
+        AuthResponse authResponse = new AuthResponse();
+        authResponse.setJwt(jwt);
+        authResponse.setMessage("User Login Successfully !!!");
+        authResponse.setUser(UserMapper.toDTO(user));
+
+        return authResponse;
+    }
+
+    private Authentication authenticate(String email, String password) throws UserException {
+        UserDetails userDetails = customUserImplementation.loadUserByUsername(email);
+        if (userDetails == null) {
+            throw new UserException("email id doesn't exist"+ email);
+        }
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+            throw new UserException("password doesn't match");
+        }
+
+
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 
     @Override

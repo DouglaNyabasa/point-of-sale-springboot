@@ -7,7 +7,7 @@ import com.doug.pointofsale.payload.response.AuthResponse;
 
 public interface AuthService {
 
-    AuthResponse login(String username, String password);
+    AuthResponse login(UserDto userDto) throws UserException;
 
     AuthResponse signUp(UserDto userDto) throws UserException;
 
