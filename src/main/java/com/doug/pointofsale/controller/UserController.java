@@ -5,11 +5,13 @@ import com.doug.pointofsale.mapper.UserMapper;
 import com.doug.pointofsale.models.User;
 import com.doug.pointofsale.payload.dto.UserDto;
 import com.doug.pointofsale.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
+
 public class UserController {
 
     private final UserService userService;
@@ -18,6 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
+
     @GetMapping("/profile")
     public ResponseEntity<UserDto> getUserProfile(@RequestHeader("Authorization") String jwt) throws UserException {
       User user = userService.getUserFromJwtToken(jwt);
@@ -25,8 +28,9 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUserById(@RequestHeader("Authorization") String jwt,@PathVariable("id") Long id ) throws UserException {
+    public ResponseEntity<UserDto> getUserById(@RequestHeader("Authorization") String jwt,@PathVariable("id") Long id ) throws UserException, Exception {
         User user = userService.getUserById(id);
+
         return ResponseEntity.ok(UserMapper.toDTO(user));
     }
 }

@@ -5,20 +5,24 @@ import com.doug.pointofsale.configaration.JwtProvider;
 import com.doug.pointofsale.models.User;
 import com.doug.pointofsale.repository.UserRepository;
 import com.doug.pointofsale.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private  final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider) {
+    public UserServiceImpl(UserRepository userRepository, JwtProvider jwtProvider) {
         this.userRepository = userRepository;
         this.jwtProvider = jwtProvider;
     }
+
 
     @Override
     public User getUserFromJwtToken(String token) throws UserException {
@@ -50,8 +54,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public User getUserById(Long id) throws UserException, Exception {
+        return userRepository.findById(id).orElseThrow(
+                ()-> new Exception("user not found")
+        );
     }
 
     @Override

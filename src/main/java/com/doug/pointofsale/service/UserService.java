@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface UserService {
 
     User getUserFromJwtToken(String token) throws UserException;
     User getCurrentUser() throws UserException;
     User getUserByEmail(String email) throws UserException;
-    User getUserById(Long id);
+    User getUserById(Long id) throws UserException, Exception;
     List<User> getAllUsers();
 }
