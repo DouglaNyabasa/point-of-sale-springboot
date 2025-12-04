@@ -2,8 +2,14 @@ package com.doug.pointofsale.models;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Embeddable
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class StoreContact {
 
     private String address;

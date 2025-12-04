@@ -33,12 +33,23 @@ public class User {
     @Column(nullable = false)
     private UserRole role;
 
+    @ManyToOne
+    private Store store;
+
     @Column()
     private String phoneNumber;
 
     private LocalDate createdAt;
     private LocalDate updatedAt;
     private LocalDate lastLoginAt;
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
 
     public Long getId() {
         return id;
