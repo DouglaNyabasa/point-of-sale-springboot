@@ -6,7 +6,7 @@ import com.doug.pointofsale.payload.dto.ProductDTO;
 
 public class ProductMapper {
 
-    public  ProductDTO toDTO(Product product) {
+    public static ProductDTO toDTO(Product product) {
         return ProductDTO.builder()
                 .id(product.getId())
                 .name(product.getName())
@@ -27,7 +27,7 @@ public class ProductMapper {
 
     }
 
-    public  Product toEntity(ProductDTO productDTO, Store store) {
+    public static Product toEntity(ProductDTO productDTO, Store store) {
        return Product.builder()
                .name(productDTO.getName())
                .code(productDTO.getCode())

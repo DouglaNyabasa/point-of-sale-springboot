@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ProductService {
 
-    ProductDTO createProduct(ProductDTO productDTO , User user);
-    ProductDTO updateProduct(Long id ,ProductDTO productDTO , User user);
+    ProductDTO createProduct(ProductDTO productDTO , User user) throws Exception;
+    ProductDTO updateProduct(Long id ,ProductDTO productDTO , User user) throws Exception;
     List<ProductDTO> getAllProductsByStoreId(Long storeId);
-    void deleteProduct(Long id, User user);
+    void deleteProduct(Long id, User user) throws Exception;
     List<ProductDTO> searchBYKeyword(Long storeId, String keyword);
 }
