@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,7 +33,7 @@ public class User {
     @Column(nullable = false)
     private UserRole role;
 
-    @Column(nullable = false)
+    @Column()
     private String phoneNumber;
 
     private LocalDate createdAt;
