@@ -7,15 +7,16 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Embeddable
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class StoreContact {
 
     private String address;
     private String phone;
     @Email(message = "Invalid email format !!!")
     private String email;
+
 
 
 

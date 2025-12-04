@@ -1,6 +1,7 @@
 package com.doug.pointofsale.service.Impl;
 
 import com.doug.pointofsale.Exception.UserException;
+import com.doug.pointofsale.domain.StoreStatus;
 import com.doug.pointofsale.mapper.StoreMapper;
 import com.doug.pointofsale.models.Store;
 import com.doug.pointofsale.models.StoreContact;
@@ -90,5 +91,15 @@ public class StoreServiceImpl implements StoreService {
             throw new UserException("You do not have permission to access this store");
         }
         return StoreMapper.toDTO(currentUser.getStore());
+    }
+
+    @Override
+    public StoreDTO moderateStore(Long id, StoreStatus status) throws Exception {
+        Store store = storeRepository.findById(id).orElseThrow(
+                () -> new Exception("Store not found")
+        );
+        store.setStatus(status);
+        Store updatedStore = storeRepository.save(store);
+        return StoreMapper.toDTO(updatedStore);
     }
 }

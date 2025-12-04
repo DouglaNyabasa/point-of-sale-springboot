@@ -1,6 +1,7 @@
 package com.doug.pointofsale.service;
 
 import com.doug.pointofsale.Exception.UserException;
+import com.doug.pointofsale.domain.StoreStatus;
 import com.doug.pointofsale.models.Store;
 import com.doug.pointofsale.models.User;
 import com.doug.pointofsale.payload.dto.StoreDTO;
@@ -17,4 +18,5 @@ public interface StoreService {
     StoreDTO updateStore(Long id ,StoreDTO storeDto) throws Exception;
     void deleteStore(Long id) throws UserException;
     StoreDTO getStoreByEmployee() throws UserException;
+    StoreDTO moderateStore(Long id, StoreStatus status) throws Exception;
 }
