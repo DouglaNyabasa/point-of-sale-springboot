@@ -29,7 +29,6 @@ public class Product {
 
     private String description;
 
-    private Double discountPrice;
 
     private Double taxRate;
 
@@ -94,13 +93,7 @@ public class Product {
         this.description = description;
     }
 
-    public Double getDiscountPrice() {
-        return discountPrice;
-    }
 
-    public void setDiscountPrice(Double discountPrice) {
-        this.discountPrice = discountPrice;
-    }
 
     public Double getTaxRate() {
         return taxRate;

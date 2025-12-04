@@ -5,9 +5,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 
+@Builder
 public class ProductDTO {
 
 
@@ -19,7 +21,7 @@ public class ProductDTO {
 
     private String description;
 
-    private Double discountPrice;
+
 
     private Double taxRate;
 
