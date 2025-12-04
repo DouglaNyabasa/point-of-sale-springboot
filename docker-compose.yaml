@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  postgres_con:
+    image: postgres:latest
+    container_name: postgres_con
+    environment:
+      POSTGRES_DB: posBD
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ADMIN
+    ports:
+      - "5432:5432"
+    volumes:
+      - /home/modestnerds/DockerVolumes/postgres_db:/var/lib/postgresql/data
+
+    networks:
+      - internal-network
+
+networks:
+  internal-network:
+    driver: bridge
+
