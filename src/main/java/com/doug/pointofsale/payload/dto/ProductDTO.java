@@ -1,15 +1,9 @@
 package com.doug.pointofsale.payload.dto;
 
-import com.doug.pointofsale.models.Store;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
 
-@Builder
 public class ProductDTO {
 
 
@@ -74,13 +68,7 @@ public class ProductDTO {
         this.description = description;
     }
 
-    public Double getDiscountPrice() {
-        return discountPrice;
-    }
 
-    public void setDiscountPrice(Double discountPrice) {
-        this.discountPrice = discountPrice;
-    }
 
     public Double getTaxRate() {
         return taxRate;
