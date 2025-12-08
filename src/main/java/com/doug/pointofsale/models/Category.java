@@ -3,13 +3,12 @@ package com.doug.pointofsale.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+@Builder
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-@Builder
 @Table(name = "category")
 public class Category {
     @Id
