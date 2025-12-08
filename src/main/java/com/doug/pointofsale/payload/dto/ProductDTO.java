@@ -1,5 +1,6 @@
 package com.doug.pointofsale.payload.dto;
 
+import com.doug.pointofsale.models.Category;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
@@ -29,12 +30,20 @@ public class ProductDTO {
 
     private Long storeId;
 
-    //private Category category;
+    private CategoryDTO category;
 
     private String brand;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public CategoryDTO getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryDTO category) {
+        this.category = category;
+    }
 
     public Long getId() {
         return id;

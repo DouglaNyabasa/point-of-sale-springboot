@@ -40,7 +40,8 @@ public class Product {
     @ManyToOne
     private Store store;
 
-    //private Category category;
+    @ManyToOne
+    private Category category;
 
     private String brand;
 
@@ -58,7 +59,13 @@ public class Product {
         createdAt = LocalDateTime.now();
     }
 
+    public Category getCategory() {
+        return category;
+    }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public void setId(Long id) {
         this.id = id;
