@@ -66,19 +66,15 @@ public class StoreServiceImpl implements StoreService {
             existing.setStoreType(storeDto.getStoreType());
         }
 //        if (storeDto.getContact() != null) {
-////            StoreContact contact = StoreContact.builder()
-////                    .address(storeDto.getContact().getAddress())
-////                    .phone(storeDto.getContact().getPhone())
-////                    .email(storeDto.getContact().getEmail())
-////                    .build();
-//
+
+
 //            StoreContact contact = new StoreContact(
 //                    storeDto.getContact().getAddress(),
 //                    storeDto.getContact().getPhone(),
 //                    storeDto.getContact().getEmail()
 //            );
 //            existing.setContact(contact);
-//        }
+
         Store updatedStore = storeRepository.save(existing);
         return StoreMapper.toDTO(updatedStore);
     }

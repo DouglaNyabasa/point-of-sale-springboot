@@ -29,19 +29,40 @@ public class CategoryServiceImpl implements CategoryService {
         this.storeRepository = storeRepository;
     }
 
+//    @Override
+//    public CategoryDTO createCategory(CategoryDTO dto) throws Exception {
+//        User user = userService.getCurrentUser();
+//        Store store = storeRepository.findById(dto.getStoreId()).orElseThrow(
+//                () -> new Exception("Store not found")
+//        );
+//        Category category = new Category(store, dto.getName());
+//
+//
+//        checkAuthority(user,category.getStore());
+//
+//        return CategoryMapper.toDTO(categoryRepository.save(category));
+//    }
+
     @Override
     public CategoryDTO createCategory(CategoryDTO dto) throws Exception {
         User user = userService.getCurrentUser();
+
+        if (user == null) {
+            throw new Exception("User cannot be null");
+        }
+
         Store store = storeRepository.findById(dto.getStoreId()).orElseThrow(
                 () -> new Exception("Store not found")
         );
+
         Category category = new Category(store, dto.getName());
 
-
-        checkAuthority(user,category.getStore());
+        // Check authority with the user's store and the current store
+        checkAuthority(user, store);
 
         return CategoryMapper.toDTO(categoryRepository.save(category));
     }
+
 
     @Override
     public List<CategoryDTO> getCategoriesByStoreId(Long storeId) {
@@ -70,15 +91,34 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.delete(category);
 
     }
+    private void checkAuthority(User user, Store store) throws Exception {
+        if (user == null) {
+            throw new Exception("User cannot be null");
+        }
 
-    private void checkAuthority(User user,Store store) throws Exception {
+        Store userStore = user.getStore();
+        if (userStore == null) {
+            throw new Exception("User does not have an associated store");
+        }
+
         boolean isAdmin = user.getRole().equals(UserRole.ROLE_STORE_ADMIN);
         boolean isManager = user.getRole().equals(UserRole.ROLE_STORE_MANAGER);
-        boolean isSameStore = user.getStore().equals(store.getStoreAdmin());
+        boolean isSameStore = userStore.equals(store); // Assuming 'store' is the current store context
 
         if (!(isAdmin && isSameStore) && !isManager) {
-            throw new Exception("you don't have permissions to manage this category ");
-
+            throw new Exception("You don't have permissions to manage this category");
         }
     }
+
+
+//    private void checkAuthority(User user,Store store) throws Exception {
+//        boolean isAdmin = user.getRole().equals(UserRole.ROLE_STORE_ADMIN);
+//        boolean isManager = user.getRole().equals(UserRole.ROLE_STORE_MANAGER);
+//        boolean isSameStore = user.getStore().equals(store.getStoreAdmin());
+//
+//        if (!(isAdmin && isSameStore) && !isManager) {
+//            throw new Exception("you don't have permissions to manage this category ");
+//
+//        }
+//    }
 }
