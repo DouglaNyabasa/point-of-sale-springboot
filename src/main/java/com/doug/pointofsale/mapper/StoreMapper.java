@@ -13,7 +13,8 @@ public class StoreMapper {
         storeDTO.setDescription(store.getDescription());
         storeDTO.setStoreAdmin(UserMapper.toDTO(store.getStoreAdmin()));
         storeDTO.setStoreType(store.getStoreType());
-        storeDTO.setContact(store.getContact());
+        storeDTO.setPhone(store.getPhone());
+        storeDTO.setAddress(store.getAddress());
         storeDTO.setStatus(store.getStatus());
         storeDTO.setUpdatedAt(store.getUpdatedAt());
         storeDTO.setCreatedAt(store.getCreatedAt());
@@ -27,7 +28,8 @@ public class StoreMapper {
         store.setDescription(storeDTO.getDescription());
         store.setStoreAdmin(storeAdmin);
         store.setStoreType(storeDTO.getStoreType());
-        store.setContact(storeDTO.getContact());
+        store.setPhone(storeDTO.getPhone());
+        store.setAddress(storeDTO.getAddress());
         store.setStatus(storeDTO.getStatus());
         store.setUpdatedAt(storeDTO.getUpdatedAt());
         store.setCreatedAt(storeDTO.getCreatedAt());

@@ -4,7 +4,6 @@ import com.doug.pointofsale.Exception.UserException;
 import com.doug.pointofsale.domain.StoreStatus;
 import com.doug.pointofsale.mapper.StoreMapper;
 import com.doug.pointofsale.models.Store;
-import com.doug.pointofsale.models.StoreContact;
 import com.doug.pointofsale.models.User;
 import com.doug.pointofsale.payload.dto.StoreDTO;
 import com.doug.pointofsale.repository.StoreRepository;

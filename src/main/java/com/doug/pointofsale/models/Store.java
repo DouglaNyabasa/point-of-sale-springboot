@@ -2,6 +2,7 @@ package com.doug.pointofsale.models;
 
 import com.doug.pointofsale.domain.StoreStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -29,8 +30,10 @@ public class Store {
     private String description;
     private String storeType;
     private StoreStatus status;
-    @Embedded
-    private StoreContact contact = new StoreContact();
+    private String address;
+    private String phone;
+
+
 
     @PrePersist
     private void onCreate(){
@@ -107,11 +110,21 @@ public class Store {
         this.status = status;
     }
 
-    public StoreContact getContact() {
-        return contact;
+    public String getAddress() {
+        return address;
     }
 
-    public void setContact(StoreContact contact) {
-        this.contact = contact;
+    public void setAddress(String address) {
+        this.address = address;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+
 }

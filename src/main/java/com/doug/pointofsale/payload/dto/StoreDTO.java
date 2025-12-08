@@ -1,7 +1,6 @@
 package com.doug.pointofsale.payload.dto;
 
 import com.doug.pointofsale.domain.StoreStatus;
-import com.doug.pointofsale.models.StoreContact;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +20,8 @@ public class StoreDTO {
     private String description;
     private String storeType;
     private StoreStatus status;
-    private StoreContact contact;
+    private String address;
+    private String phone;
 
     public Long getId() {
         return id;
@@ -87,11 +87,21 @@ public class StoreDTO {
         this.status = status;
     }
 
-    public StoreContact getContact() {
-        return contact;
+    public String getAddress() {
+        return address;
     }
 
-    public void setContact(StoreContact contact) {
-        this.contact = contact;
+    public void setAddress(String address) {
+        this.address = address;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+
 }
