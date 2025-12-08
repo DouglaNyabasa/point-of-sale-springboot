@@ -3,11 +3,8 @@ package com.doug.pointofsale.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-@Builder
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 @EqualsAndHashCode
 @Table(name = "category")
 public class Category {
@@ -20,6 +17,34 @@ public class Category {
     private Store store;
 
 
+    public Category( Store store,String name) {
+        this.store = store;
+        this.name = name;
+    }
 
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
 }

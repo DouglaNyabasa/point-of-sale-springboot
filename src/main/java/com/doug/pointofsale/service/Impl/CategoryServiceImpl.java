@@ -35,17 +35,16 @@ public class CategoryServiceImpl implements CategoryService {
         Store store = storeRepository.findById(dto.getStoreId()).orElseThrow(
                 () -> new Exception("Store not found")
         );
-        Category category = Category.builder()
-                .store(store)
-                .name(dto.getName())
-                .build();
+        Category category = new Category(store, dto.getName());
+
+
         checkAuthority(user,category.getStore());
 
         return CategoryMapper.toDTO(categoryRepository.save(category));
     }
 
     @Override
-    public List<CategoryDTO> getAllCategories(Long storeId) {
+    public List<CategoryDTO> getCategoriesByStoreId(Long storeId) {
          List<Category> categories = categoryRepository.findByStoreId(storeId);
          return  categories.stream().map(CategoryMapper::toDTO).collect(Collectors.toList());
     }
