@@ -39,8 +39,9 @@ public class CategoryServiceImpl implements CategoryService {
                 .store(store)
                 .name(dto.getName())
                 .build();
+        checkAuthority(user,category.getStore());
 
-        return CategoryMapper.toDTO(category);
+        return CategoryMapper.toDTO(categoryRepository.save(category));
     }
 
     @Override
@@ -66,6 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
                 ()-> new Exception("category not found !!")
         );
         User user = userService.getCurrentUser();
+        checkAuthority(user,category.getStore());
         categoryRepository.delete(category);
 
     }
