@@ -12,9 +12,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
   List<Product> findByStoreId(Long storeId);
 
   @Query(
-          "SELECT p FROM Product p " +  // Added space before WHERE
+          "SELECT p FROM Product p " +
                   "WHERE p.store.id = :storeId AND (" +
-                  "LOWER(p.name) LIKE LOWER(CONCAT('%', :query, '%')) " +  // Removed spaces for consistency
+                  "LOWER(p.name) LIKE LOWER(CONCAT('%', :query, '%')) " +
                   "OR LOWER(p.brand) LIKE LOWER(CONCAT('%', :query, '%')) " +
                   "OR LOWER(p.code) LIKE LOWER(CONCAT('%', :query, '%')) " +
                   ")"
