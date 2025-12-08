@@ -1,6 +1,7 @@
 package com.doug.pointofsale.payload.dto;
 
 import com.doug.pointofsale.domain.UserRole;
+import com.doug.pointofsale.models.Store;
 import lombok.Data;
 
 
@@ -19,6 +20,15 @@ public class UserDto {
     private LocalDate createdAt;
     private LocalDate updatedAt;
     private LocalDate lastLoginAt;
+    private Store store;
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
 
     public Long getId() {
         return id;
@@ -91,4 +101,6 @@ public class UserDto {
     public void setLastLoginAt(LocalDate lastLoginAt) {
         this.lastLoginAt = lastLoginAt;
     }
+
+
 }

@@ -4,9 +4,11 @@ import com.doug.pointofsale.Exception.UserException;
 import com.doug.pointofsale.configaration.JwtProvider;
 import com.doug.pointofsale.domain.UserRole;
 import com.doug.pointofsale.mapper.UserMapper;
+import com.doug.pointofsale.models.Store;
 import com.doug.pointofsale.models.User;
 import com.doug.pointofsale.payload.dto.UserDto;
 import com.doug.pointofsale.payload.response.AuthResponse;
+import com.doug.pointofsale.repository.StoreRepository;
 import com.doug.pointofsale.repository.UserRepository;
 import com.doug.pointofsale.service.AuthService;
 import com.doug.pointofsale.service.CustomUserImplementation;
@@ -28,13 +30,15 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
     private final CustomUserImplementation customUserImplementation;
+    private final StoreRepository storeRepository;
 
 
-    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider, CustomUserImplementation customUserImplementation) {
+    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider, CustomUserImplementation customUserImplementation, StoreRepository storeRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtProvider = jwtProvider;
         this.customUserImplementation = customUserImplementation;
+        this.storeRepository = storeRepository;
     }
 
     @Override
@@ -70,6 +74,9 @@ public class AuthServiceImpl implements AuthService {
 
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
+
+
+
 
     @Override
     public AuthResponse signUp(UserDto userDto) throws UserException {
