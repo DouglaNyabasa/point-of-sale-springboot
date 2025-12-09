@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-@Table(name = "products")
+@Table(name = "branches")
 public class Branch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
