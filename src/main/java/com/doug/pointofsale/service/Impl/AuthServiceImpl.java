@@ -4,9 +4,8 @@ import com.doug.pointofsale.Exception.UserException;
 import com.doug.pointofsale.configaration.JwtProvider;
 import com.doug.pointofsale.domain.UserRole;
 import com.doug.pointofsale.mapper.UserMapper;
-import com.doug.pointofsale.models.Store;
 import com.doug.pointofsale.models.User;
-import com.doug.pointofsale.payload.dto.UserDto;
+import com.doug.pointofsale.payload.dto.UserDTO;
 import com.doug.pointofsale.payload.response.AuthResponse;
 import com.doug.pointofsale.repository.StoreRepository;
 import com.doug.pointofsale.repository.UserRepository;
@@ -42,7 +41,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse login(UserDto userDto) throws UserException {
+    public AuthResponse login(UserDTO userDto) throws UserException {
         String email = userDto.getEmail();
         String password = userDto.getPassword();
 
@@ -79,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public AuthResponse signUp(UserDto userDto) throws UserException {
+    public AuthResponse signUp(UserDTO userDto) throws UserException {
         User user = userRepository.findByEmail(userDto.getEmail());
         if (user != null) {
             throw new UserException("email id is already registered !!!");

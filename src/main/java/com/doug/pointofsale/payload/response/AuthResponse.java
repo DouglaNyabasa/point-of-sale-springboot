@@ -1,13 +1,12 @@
 package com.doug.pointofsale.payload.response;
 
-import com.doug.pointofsale.payload.dto.UserDto;
-import lombok.Data;
+import com.doug.pointofsale.payload.dto.UserDTO;
 
 
 public class AuthResponse {
     private String jwt;
     private String message;
-    private UserDto user;
+    private UserDTO user;
 
 
     public String getJwt() {
@@ -26,11 +25,11 @@ public class AuthResponse {
         this.message = message;
     }
 
-    public UserDto getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(UserDto user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 }

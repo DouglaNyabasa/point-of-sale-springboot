@@ -2,13 +2,12 @@ package com.doug.pointofsale.payload.dto;
 
 import com.doug.pointofsale.domain.UserRole;
 import com.doug.pointofsale.models.Store;
-import lombok.Data;
 
 
 import java.time.LocalDate;
 
 
-public class UserDto {
+public class UserDTO {
 
 
     private Long id;

@@ -1,50 +1,31 @@
-package com.doug.pointofsale.models;
+package com.doug.pointofsale.payload.dto;
 
-
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import com.doug.pointofsale.models.Store;
+import com.doug.pointofsale.models.User;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-@Table(name = "products")
-public class Branch {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BranchDTO {
+
     private Long id;
     private String name;
     private String address;
     private String phone;
     private String email;
-    @ElementCollection
     private List<String> workingDays;
     private LocalTime closeTime;
     private LocalTime openTime;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-    @ManyToOne
-    private Store store;
-
-    @OneToOne(cascade = CascadeType.REMOVE)
-    private User manager;
-
-    @PrePersist
-    private void onCreate(){
-        createdAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    private void onUpdate(){
-        createdAt = LocalDateTime.now();
-    }
+    private Long storeId;
+    private StoreDTO store;
+    private UserDTO manager;
 
     public LocalTime getOpenTime() {
         return openTime;
@@ -126,19 +107,27 @@ public class Branch {
         this.updatedAt = updatedAt;
     }
 
-    public Store getStore() {
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
+
+    public StoreDTO getStore() {
         return store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(StoreDTO store) {
         this.store = store;
     }
 
-    public User getManager() {
+    public UserDTO getManager() {
         return manager;
     }
 
-    public void setManager(User manager) {
+    public void setManager(UserDTO manager) {
         this.manager = manager;
     }
 }
