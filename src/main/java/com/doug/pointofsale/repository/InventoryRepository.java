@@ -3,5 +3,11 @@ package com.doug.pointofsale.repository;
 import com.doug.pointofsale.models.Inventory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface InventoryRepository extends JpaRepository<Inventory, Integer> {
+import java.util.List;
+
+public interface InventoryRepository extends JpaRepository<Inventory, Long> {
+
+    Inventory findByProductIdAndBranchId(Long productId, Long branchId);
+    List<Inventory> findByBranchId(Long branchId);
+
 }
