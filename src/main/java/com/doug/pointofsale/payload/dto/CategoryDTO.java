@@ -9,7 +9,7 @@ public class CategoryDTO {
     private String name;
     private Long storeId;
 
-    public CategoryDTO( String name, Long storeId) {
+    public CategoryDTO(Long id, String name, Long storeId) {
         this.name = name;
         this.storeId = storeId;
     }

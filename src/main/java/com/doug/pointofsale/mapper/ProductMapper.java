@@ -23,6 +23,7 @@ public class ProductMapper {
         productDTO.setImageUrl(product.getImageUrl());
         productDTO.setCreatedAt(product.getCreatedAt());
         productDTO.setUpdatedAt(product.getUpdatedAt());
+//        productDTO.setCategoryId(product.getCategory().getId());
 
         return productDTO;
     }
