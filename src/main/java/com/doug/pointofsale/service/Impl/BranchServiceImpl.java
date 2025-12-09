@@ -30,7 +30,7 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    public BranchDTO createBranch(BranchDTO branchDTO, User user) throws UserException {
+    public BranchDTO createBranch(BranchDTO branchDTO) throws UserException {
         User currentUser = userService.getCurrentUser();
         Store store = storeRepository.findByStoreAdminId(currentUser.getId());
 
@@ -42,7 +42,7 @@ public class BranchServiceImpl implements BranchService {
 
 
     @Override
-    public BranchDTO getBranchById(Long id, BranchDTO branchDTO, User user) throws Exception {
+    public BranchDTO updateBranch(Long id, BranchDTO branchDTO) throws Exception {
         Branch existing = branchRepository.findById(id).orElseThrow(
                 ()-> new Exception("branch does not exist !!!!")
         );
