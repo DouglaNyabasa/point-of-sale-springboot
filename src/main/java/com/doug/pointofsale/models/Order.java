@@ -33,6 +33,17 @@ public class Order {
     @OneToMany
     private List<OrderItem> items;
 
+    @PrePersist
+    private void onCreate(){
+        createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    private void onUpdate(){
+        createdAt = LocalDateTime.now();
+    }
+
+
     public Double getTotalAmount() {
         return totalAmount;
     }
