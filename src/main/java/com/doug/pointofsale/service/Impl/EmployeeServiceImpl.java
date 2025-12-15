@@ -59,12 +59,33 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public UserDTO createBranchEmployee(UserDTO employee, Long branchId) throws Exception {
-        return null;
+      Branch   branch = branchRepository.findById(branchId).orElseThrow(
+              () -> new Exception("Branch not found")
+      );
+      if (employee.getRole() == UserRole.ROLE_BRANCH_CASHIER || employee.getRole() == UserRole.ROLE_BRANCH_MANAGER) {
+          User user = UserMapper.toEntity(employee);
+          user.setBranch(branch);
+          user.setPassword(passwordEncoder.encode(employee.getPassword()));
+          return UserMapper.toDTO(userRepository.save(user));
+      }
+        throw new Exception("Branch role not supported");
     }
 
     @Override
-    public User updateEmployee(Long employeeId, User employeeDetails) {
-        return null;
+    public User updateEmployee(Long employeeId, UserDTO employeeDetails) throws Exception {
+        User existingEmployee = userRepository.findById(employeeId).orElseThrow(
+                ()-> new  Exception("employee does not exist with given id")
+        );
+        Branch branch = branchRepository.findById(employeeDetails.getBranchId()).orElseThrow(
+                ()-> new Exception("branch not found")
+        );
+
+        existingEmployee.setEmail(employeeDetails.getEmail());
+        existingEmployee.setFullName(employeeDetails.getFullName());
+        existingEmployee.setPassword(employeeDetails.getPassword());
+        existingEmployee.setRole(employeeDetails.getRole());
+        existingEmployee.setBranch(branch);
+        return userRepository.save(existingEmployee);
     }
 
     @Override
