@@ -21,7 +21,19 @@ public class OrderDto {
 
     private UserDTO cashier;
 
+    private Long customerId;
+
     private Customer customer;
+    private List<OrderItem> items;
+
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
+    }
 
     public Long getId() {
         return id;
@@ -69,5 +81,13 @@ public class OrderDto {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 }
