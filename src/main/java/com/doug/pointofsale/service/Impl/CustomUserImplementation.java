@@ -1,4 +1,4 @@
-package com.doug.pointofsale.service;
+package com.doug.pointofsale.service.Impl;
 
 import com.doug.pointofsale.models.User;
 import com.doug.pointofsale.repository.UserRepository;

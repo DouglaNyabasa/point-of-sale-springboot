@@ -10,7 +10,6 @@ import com.doug.pointofsale.payload.response.AuthResponse;
 import com.doug.pointofsale.repository.StoreRepository;
 import com.doug.pointofsale.repository.UserRepository;
 import com.doug.pointofsale.service.AuthService;
-import com.doug.pointofsale.service.CustomUserImplementation;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
