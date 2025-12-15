@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -98,12 +99,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<User> findStoreEmployees(Long storeId, UserRole role) {
-        return List.of();
+    public List<User> findStoreEmployees(Long storeId, UserRole role) throws Exception {
+        Store store = storeRepository.findById(storeId).orElseThrow(
+                () -> new Exception("Store not found")
+        );
+
+        return userRepository.findByStore(store)
+                .stream()
+                .filter(user -> role == null || user.getRole() == role).collect(Collectors.toList());
     }
 
     @Override
-    public List<User> findBranchEmployees(Long branchId, UserRole role) {
-        return List.of();
+    public List<User> findBranchEmployees(Long branchId, UserRole role) throws Exception {
+        Branch branch = branchRepository.findById(branchId).orElseThrow(
+                ()-> new Exception (" branch not found")
+        );
+
+
+        return userRepository.findByBranchId(branchId)
+                .stream().filter(
+                        user -> role == null || user.getRole() == role
+                ).collect(Collectors.toList());
+
     }
 }
