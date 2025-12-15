@@ -89,7 +89,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteEmployee(Long employeeId) {
+    public void deleteEmployee(Long employeeId) throws Exception {
+         User user = userRepository.findById(employeeId).orElseThrow(
+                 ()-> new Exception("User Not Found")
+         );
+         userRepository.delete(user);
 
     }
 
