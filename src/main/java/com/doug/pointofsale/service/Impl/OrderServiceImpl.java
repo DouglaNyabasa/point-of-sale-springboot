@@ -54,6 +54,13 @@ public class OrderServiceImpl implements OrderService {
                              return orderItem;
                         }
                 ).toList();
+        double total = orderItems.stream().mapToDouble(
+                OrderItem::getPrice
+        ).sum();
+        order.setTotalAmount(total);
+        order.setItems(orderItems);
+
+        Order savedOrder = orderRepository.save(order);
 
 
         return null;
