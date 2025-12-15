@@ -8,6 +8,7 @@ import com.doug.pointofsale.repository.OrderRepository;
 import com.doug.pointofsale.repository.ProductRepository;
 import com.doug.pointofsale.service.OrderService;
 import com.doug.pointofsale.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
                 .map(
                         itemDto ->{
                             Product product = productRepository.findById(itemDto.getProductId())
-                                    .orElseThrow(()-> new Exception("product not found"));
+                                    .orElseThrow(()-> new EntityNotFoundException("product not found"));
 
                              OrderItem  orderItem = new OrderItem();
                              orderItem.setProduct(product);
@@ -52,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
                              orderItem.setOrder(order);
                              return orderItem;
                         }
-                );
+                ).toList();
 
 
         return null;

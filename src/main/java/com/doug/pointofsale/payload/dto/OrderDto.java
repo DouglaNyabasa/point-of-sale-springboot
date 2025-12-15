@@ -1,5 +1,6 @@
 package com.doug.pointofsale.payload.dto;
 
+import com.doug.pointofsale.domain.PaymentType;
 import com.doug.pointofsale.models.Branch;
 import com.doug.pointofsale.models.Customer;
 import com.doug.pointofsale.models.OrderItem;
@@ -18,14 +19,31 @@ public class OrderDto {
     private LocalDateTime createdAt;
 
     private BranchDTO branch;
+    private Long branchId;
 
     private UserDTO cashier;
 
     private Long customerId;
 
+    private PaymentType paymentType;
     private Customer customer;
     private List<OrderItem> items;
 
+    public Long getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(Long branchId) {
+        this.branchId = branchId;
+    }
+
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
+    }
 
     public List<OrderItem> getItems() {
         return items;

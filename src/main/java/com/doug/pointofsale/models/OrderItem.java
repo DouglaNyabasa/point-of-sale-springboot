@@ -19,6 +19,15 @@ public class OrderItem {
     private Double price;
     @ManyToOne
     private Product product;
+    private Long productId;
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
 
     @ManyToOne
     private Order order;
