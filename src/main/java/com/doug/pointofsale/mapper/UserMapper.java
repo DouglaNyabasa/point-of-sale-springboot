@@ -13,6 +13,8 @@ public class UserMapper {
         userDto.setEmail(savedUser.getEmail());
         userDto.setRole(savedUser.getRole());
         userDto.setPhoneNumber(String.valueOf(savedUser.getPhoneNumber()));
+        userDto.setBranchId(savedUser.getStore() != null ? savedUser.getBranch().getId(): null);
+        userDto.setStoreId(savedUser.getBranch() != null ? savedUser.getStore().getId() : null);
         return userDto;
     }
 
