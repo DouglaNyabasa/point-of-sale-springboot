@@ -6,7 +6,7 @@ import com.doug.pointofsale.payload.dto.OrderDto;
 import java.util.stream.Collectors;
 
 public class OrderMapper {
-    public static OrderDto toOrderDto(Order order) {
+    public static OrderDto toDTO(Order order) {
         OrderDto orderDto = new OrderDto();
         orderDto.setId(order.getId());
         orderDto.setTotalAmount(order.getTotalAmount());

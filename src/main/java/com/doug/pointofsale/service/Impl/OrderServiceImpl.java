@@ -2,6 +2,7 @@ package com.doug.pointofsale.service.Impl;
 
 import com.doug.pointofsale.domain.OrderStatus;
 import com.doug.pointofsale.domain.PaymentType;
+import com.doug.pointofsale.mapper.OrderMapper;
 import com.doug.pointofsale.models.*;
 import com.doug.pointofsale.payload.dto.OrderDto;
 import com.doug.pointofsale.repository.OrderRepository;
@@ -63,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
         Order savedOrder = orderRepository.save(order);
 
 
-        return null;
+        return OrderMapper.toDTO(savedOrder);
     }
 
     @Override

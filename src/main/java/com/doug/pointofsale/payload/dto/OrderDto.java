@@ -27,7 +27,8 @@ public class OrderDto {
 
     private PaymentType paymentType;
     private Customer customer;
-    private List<OrderItem> items;
+    private List<OrderItemDto> items;
+
 
     public Long getBranchId() {
         return branchId;
@@ -45,11 +46,11 @@ public class OrderDto {
         this.paymentType = paymentType;
     }
 
-    public List<OrderItem> getItems() {
+    public List<OrderItemDto> getItems() {
         return items;
     }
 
-    public void setItems(List<OrderItem> items) {
+    public void setItems(List<OrderItemDto> items) {
         this.items = items;
     }
 
