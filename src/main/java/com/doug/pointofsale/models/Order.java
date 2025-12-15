@@ -1,5 +1,6 @@
 package com.doug.pointofsale.models;
 
+import com.doug.pointofsale.domain.PaymentType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -33,6 +34,9 @@ public class Order {
     @OneToMany
     private List<OrderItem> items;
 
+
+    private PaymentType paymentType;
+
     @PrePersist
     private void onCreate(){
         createdAt = LocalDateTime.now();
@@ -43,6 +47,13 @@ public class Order {
         createdAt = LocalDateTime.now();
     }
 
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
+    }
 
     public Double getTotalAmount() {
         return totalAmount;

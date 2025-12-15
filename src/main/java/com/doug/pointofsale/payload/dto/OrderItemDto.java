@@ -1,5 +1,6 @@
 package com.doug.pointofsale.payload.dto;
 
+import com.doug.pointofsale.domain.PaymentType;
 import com.doug.pointofsale.models.Order;
 import com.doug.pointofsale.models.Product;
 import jakarta.persistence.ManyToOne;
@@ -14,6 +15,16 @@ public class OrderItemDto {
     private ProductDTO product;
 
     private Long orderId;
+
+    private Long productId;
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
 
     public Long getId() {
         return id;

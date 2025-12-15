@@ -2,16 +2,59 @@ package com.doug.pointofsale.service.Impl;
 
 import com.doug.pointofsale.domain.OrderStatus;
 import com.doug.pointofsale.domain.PaymentType;
+import com.doug.pointofsale.models.*;
 import com.doug.pointofsale.payload.dto.OrderDto;
+import com.doug.pointofsale.repository.OrderRepository;
+import com.doug.pointofsale.repository.ProductRepository;
 import com.doug.pointofsale.service.OrderService;
+import com.doug.pointofsale.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+
+    private final OrderRepository orderRepository;
+    private final UserService userService;
+    private final ProductRepository productRepository;
+
+    public OrderServiceImpl(OrderRepository orderRepository, UserService userService, ProductRepository productRepository) {
+        this.orderRepository = orderRepository;
+        this.userService = userService;
+        this.productRepository = productRepository;
+    }
+
     @Override
     public OrderDto createOrder(OrderDto orderDto) throws Exception {
+        User cashier = userService.getCurrentUser();
+        Branch branch = cashier.getBranch();
+        if (branch == null) {
+            throw new Exception("cashier branch is not found");
+        }
+        Order order = new Order();
+        order.setBranch(branch);
+        order.setCashier(cashier);
+        order.setCustomer(orderDto.getCustomer());
+        order.setPaymentType(orderDto.getPaymentType());
+
+        List<OrderItem> orderItems = orderDto.getItems()
+                .stream()
+                .map(
+                        itemDto ->{
+                            Product product = productRepository.findById(itemDto.getProductId())
+                                    .orElseThrow(()-> new Exception("product not found"));
+
+                             OrderItem  orderItem = new OrderItem();
+                             orderItem.setProduct(product);
+                             orderItem.setQuantity(itemDto.getQuantity());
+                             orderItem.setPrice(product.getSellingPrice() * itemDto.getQuantity());
+                             orderItem.setOrder(order);
+                             return orderItem;
+                        }
+                );
+
+
         return null;
     }
 
