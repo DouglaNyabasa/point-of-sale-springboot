@@ -18,31 +18,45 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer createCustomer(Customer customer) {
-        return null;
+
+        return customerRepository.save(customer);
     }
 
     @Override
     public Customer updateCustomer(Long id, Customer customer) {
-        return null;
+        Customer customerToUpdate = customerRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Customer not found")
+        );
+        customer.setFullName(customerToUpdate.getFullName());
+        customer.setEmail(customerToUpdate.getEmail());
+        customer.setPhoneNumber(customerToUpdate.getPhoneNumber());
+
+        return customerRepository.save(customer);
     }
 
     @Override
     public void deleteCustomer(Long id) throws Exception {
+        Customer customerToDelete = customerRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Customer not found")
+        );
+        customerRepository.delete(customerToDelete);
 
     }
 
     @Override
     public Customer getCustomer(Long id) throws Exception {
-        return null;
+                return  customerRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Customer not found")
+        );
     }
 
     @Override
     public List<Customer> getAllCustomers() throws Exception {
-        return List.of();
+        return customerRepository.findAll();
     }
 
     @Override
     public List<Customer> searchCustomers(String keyword) throws Exception {
-        return List.of();
+        return customerRepository.findByFullNameContainingIgnoreCaseOrEmailContainingIgnoreCase(keyword, keyword);
     }
 }
