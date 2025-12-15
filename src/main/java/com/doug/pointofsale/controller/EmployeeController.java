@@ -48,14 +48,14 @@ public class EmployeeController {
     };
 
     @GetMapping("/store/{id}")
-    public ResponseEntity<List<User>> storeEmployee(@PathVariable Long id , @RequestParam(required = false)UserRole userRole) throws Exception {
-        List<User> employee = employeeService.findStoreEmployees(id,userRole);
+    public ResponseEntity<List<UserDTO>> storeEmployee(@PathVariable Long id , @RequestParam(required = false)UserRole userRole) throws Exception {
+        List<UserDTO> employee = employeeService.findStoreEmployees(id,userRole);
         return ResponseEntity.ok(employee);
     };
 
     @GetMapping("/branch/{id}")
-    public ResponseEntity<List<User>> branchEmployee(@PathVariable Long id , @RequestParam(required = false)UserRole userRole) throws Exception {
-        List<User> employee = employeeService.findBranchEmployees(id,userRole);
+    public ResponseEntity<List<UserDTO>> branchEmployee(@PathVariable Long id , @RequestParam(required = false)UserRole userRole) throws Exception {
+        List<UserDTO> employee = employeeService.findBranchEmployees(id,userRole);
         return ResponseEntity.ok(employee);
     };
 }
