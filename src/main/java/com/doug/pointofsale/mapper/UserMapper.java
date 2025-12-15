@@ -12,9 +12,20 @@ public class UserMapper {
         userDto.setFullName(savedUser.getFullName());
         userDto.setEmail(savedUser.getEmail());
         userDto.setRole(savedUser.getRole());
-        userDto.setCreatedAt(savedUser.getCreatedAt());
         userDto.setPhoneNumber(String.valueOf(savedUser.getPhoneNumber()));
-        userDto.setCreatedAt(savedUser.getCreatedAt());
         return userDto;
+    }
+
+    public static User toEntity(UserDTO userDTO) {
+        User user = new User();
+        user.setFullName(userDTO.getFullName());
+        user.setEmail(userDTO.getEmail());
+        user.setRole(userDTO.getRole());
+        user.setPhoneNumber(userDTO.getPhoneNumber());
+        user.setPassword(userDTO.getPassword());
+        user.setCreatedAt(userDTO.getCreatedAt());
+        user.setUpdatedAt(userDTO.getUpdatedAt());
+        user.setLastLoginAt(userDTO.getLastLoginAt());
+        return user;
     }
 }

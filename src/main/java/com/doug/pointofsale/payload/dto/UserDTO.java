@@ -19,15 +19,26 @@ public class UserDTO {
     private LocalDate createdAt;
     private LocalDate updatedAt;
     private LocalDate lastLoginAt;
-    private Store store;
+    private Long branchId;
+    private Long storeId;
 
-    public Store getStore() {
-        return store;
+    public Long getBranchId() {
+        return branchId;
     }
 
-    public void setStore(Store store) {
-        this.store = store;
+    public void setBranchId(Long branchId) {
+        this.branchId = branchId;
     }
+
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
+
+
 
     public Long getId() {
         return id;

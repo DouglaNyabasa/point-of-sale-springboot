@@ -36,12 +36,23 @@ public class User {
     @ManyToOne
     private Store store;
 
+    @ManyToOne
+    private Branch branch;
+
     @Column()
     private String phoneNumber;
 
     private LocalDate createdAt;
     private LocalDate updatedAt;
     private LocalDate lastLoginAt;
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
 
     public Store getStore() {
         return store;
