@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface RefundService {
 
-    RefundDTO createRefund(Refund refund) throws Exception;
+    RefundDTO createRefund(RefundDTO refund) throws Exception;
     List<RefundDTO> getAllRefund() throws Exception;
     RefundDTO getRefundByCashId(String cashId) throws Exception;
     RefundDTO getRefundByShiftReport(Long shiftReportId) throws Exception;

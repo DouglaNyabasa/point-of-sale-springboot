@@ -32,7 +32,7 @@ public class Refund {
     private ShiftReport shiftReport;
 
     @ManyToOne
-    private User cashUser;
+    private User cashier;
 
     @ManyToOne
     private Branch branch;
@@ -61,12 +61,12 @@ public class Refund {
         this.amount = amount;
     }
 
-    public User getCashUser() {
-        return cashUser;
+    public User getCashier() {
+        return cashier;
     }
 
-    public void setCashUser(User cashUser) {
-        this.cashUser = cashUser;
+    public void setCashier(User cashier) {
+        this.cashier = cashier;
     }
 
     public Branch getBranch() {

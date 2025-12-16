@@ -10,7 +10,7 @@ public class RefundMapper {
         refundDTO.setId(refund.getId());
         refundDTO.setReason(refund.getReason());
         refundDTO.setAmount(refund.getAmount());
-        refundDTO.setCashierName(refund.getCashUser().getFullName());
+        refundDTO.setCashierName(refund.getCashier().getFullName());
         refundDTO.setBranchId(refund.getBranch().getId());
         refundDTO.setOrderId(refund.getOrder().getId());
         refundDTO.setShiftReport(refund.getShiftReport());
