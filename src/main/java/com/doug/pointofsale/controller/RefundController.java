@@ -3,10 +3,13 @@ package com.doug.pointofsale.controller;
 import com.doug.pointofsale.models.Refund;
 import com.doug.pointofsale.payload.dto.RefundDTO;
 import com.doug.pointofsale.service.RefundService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -40,6 +43,24 @@ public class RefundController {
     @GetMapping("/branch/{branchId}")
     public ResponseEntity<List<RefundDTO>> getRefundByBranch(@PathVariable Long branchId) throws Exception {
         List<RefundDTO> refund = refundService.getRefundByBranch(branchId);
+        return  ResponseEntity.ok(refund);
+    }
+
+    @GetMapping("/shift/{shiftId}")
+    public ResponseEntity<List<RefundDTO>> getRefundByShift(@PathVariable Long shiftId) throws Exception {
+        List<RefundDTO> refund = refundService.getRefundByShiftReport(shiftId);
+        return  ResponseEntity.ok(refund);
+    }
+
+    @GetMapping("/cashier/{cashierId}")
+    public ResponseEntity<List<RefundDTO>> getRefundByCashierAndDateRange(@PathVariable Long cashierId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) throws Exception {
+        List<RefundDTO> refund = refundService.getRefundByCashierIdAndDateRange(cashierId,startDate,endDate);
+        return  ResponseEntity.ok(refund);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RefundDTO> getRefundById(@PathVariable Long id) throws Exception {
+        RefundDTO refund = refundService.getRefundById(id);
         return  ResponseEntity.ok(refund);
     }
 
