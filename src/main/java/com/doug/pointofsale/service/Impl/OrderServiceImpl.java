@@ -12,6 +12,8 @@ import com.doug.pointofsale.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -97,12 +99,23 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void deleteOrder(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(
+                ()-> new EntityNotFoundException("order not found with id"+ id)
+        );
+        orderRepository.delete(order);
 
     }
 
     @Override
     public List<OrderDto> getTodayOrdersByBranch(Long branchId) throws Exception {
-        return List.of();
+        LocalDate today = LocalDate.now();
+        LocalDateTime start = today.atStartOfDay();
+        LocalDateTime end = today.plusDays(1).atStartOfDay();
+
+
+        return orderRepository.findByBranchIdAndCreatedAtBetween(
+                branchId, start,end
+        ).stream().map(OrderMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
