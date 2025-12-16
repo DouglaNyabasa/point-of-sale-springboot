@@ -13,13 +13,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-@Table(name = "refund")
+@Table(name = "refunds")
 public class Refund {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String refundCode;
 
     @ManyToOne
     private Order order;
@@ -110,13 +109,6 @@ public class Refund {
         this.order = order;
     }
 
-    public String getRefundCode() {
-        return refundCode;
-    }
-
-    public void setRefundCode(String refundCode) {
-        this.refundCode = refundCode;
-    }
 
     public Long getId() {
         return id;
