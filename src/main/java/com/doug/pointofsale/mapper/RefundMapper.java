@@ -14,7 +14,7 @@ public class RefundMapper {
         refundDTO.setBranchId(refund.getBranch().getId());
         refundDTO.setOrderId(refund.getOrder().getId());
         refundDTO.setShiftReport(refund.getShiftReport());
-        refundDTO.setCreatedAt(refund.getCreatedAt());
+        refundDTO.setCreatedAt(refund.getShiftReport() != null ?  refund.getCreatedAt(): null);
         refundDTO.setPaymentType(refund.getPaymentType());
 
         return refundDTO;
