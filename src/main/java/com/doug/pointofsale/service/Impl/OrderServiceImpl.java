@@ -13,6 +13,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -69,12 +70,21 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto getOrderById(Long id) throws Exception {
-        return null;
+        return orderRepository.findById(id)
+                .map(OrderMapper::toDTO)
+                .orElseThrow(
+                ()-> new Exception("order not found with id"+ id)
+        );
     }
 
     @Override
     public List<OrderDto> getOrdersByBranch(Long branchId, Long customerId, Long cashierId, PaymentType paymentType, OrderStatus orderStatus) throws Exception {
-        return List.of();
+        return orderRepository.findByBranchId(branchId)
+                .stream()
+                .filter(order -> customerId == null || (order.getCustomer() != null && order.getCustomer().getId().equals(customerId)))
+                .filter(order -> cashierId == null || order.getCashier() != null && order.getCashier().getId().equals(cashierId))
+                .filter(order ->  paymentType == null || order.getPaymentType() == paymentType )
+                .map(OrderMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
