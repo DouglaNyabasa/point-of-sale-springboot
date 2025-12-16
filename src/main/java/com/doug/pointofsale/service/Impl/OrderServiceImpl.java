@@ -120,11 +120,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getTodayOrdersByCustomerId(Long customerId) throws Exception {
-        return List.of();
+        return orderRepository.findByCustomerId(customerId).stream().map(OrderMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
     public List<OrderDto> getTop5RecentOrdersByBranchId(Long branchId) throws Exception {
-        return List.of();
+        return orderRepository.findTop5ByCustomerIdOrderByCreatedAtDesc(branchId).stream().map(OrderMapper::toDTO).collect(Collectors.toList());
     }
 }
