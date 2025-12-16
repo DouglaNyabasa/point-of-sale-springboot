@@ -34,6 +34,20 @@ public class OrderController {
         return  ResponseEntity.ok(orderService.getOrdersByBranch(branchId,customerId,cashierId,paymentType,orderStatus));
     }
 
+    @GetMapping("/cashierId/{id}")
+    public ResponseEntity<List<OrderDto>> getOrderByCashier(@PathVariable Long id) throws Exception {
+        return  ResponseEntity.ok(orderService.getOrderByCashier(id));
+    }
+
+    @GetMapping("/today/branch/{id}")
+    public ResponseEntity<List<OrderDto>> getTodayOrder(@PathVariable Long id) throws Exception {
+        return  ResponseEntity.ok(orderService.getTodayOrdersByBranch(id));
+    }
+
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<List<OrderDto>> getCustomerOrder(@PathVariable Long id) throws Exception {
+        return  ResponseEntity.ok(orderService.getTodayOrdersByCustomerId(id));
+    }
 
 
 
