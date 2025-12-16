@@ -69,22 +69,27 @@ public class RefundServiceImpl implements RefundService {
     }
 
     @Override
-    public List<RefundDTO> getRefundByCashierAndDateRange(String cashierId, LocalDateTime startDate, LocalDateTime endDate) throws Exception {
-        return List.of();
+    public List<RefundDTO> getRefundByCashierIdAndDateRange(Long cashierId, LocalDateTime startDate, LocalDateTime endDate) throws Exception {
+        return refundRepository.findByCashierIdAndCreatedBetween(
+                cashierId,startDate,endDate
+        ).stream().map(RefundMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
     public List<RefundDTO> getRefundByBranch(Long branchId) throws Exception {
-        return List.of();
+        return refundRepository.findByBranchId(branchId).stream().map(RefundMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
     public RefundDTO getRefundById(Long refundId) throws Exception {
-        return null;
+        return refundRepository.findById(refundId).map(RefundMapper::toDTO).orElseThrow(
+                ()-> new Exception("Refund Not Found!!!") );
     }
 
     @Override
     public void deleteRefund(Long refundId) throws Exception {
+        this.getRefundById(refundId);
+        refundRepository.deleteById(refundId);
 
     }
 }
