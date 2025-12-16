@@ -11,8 +11,8 @@ public interface RefundService {
 
     RefundDTO createRefund(RefundDTO refund) throws Exception;
     List<RefundDTO> getAllRefund() throws Exception;
-    RefundDTO getRefundByCashId(String cashId) throws Exception;
-    RefundDTO getRefundByShiftReport(Long shiftReportId) throws Exception;
+    List<RefundDTO> getRefundByCashier(Long cashier) throws Exception;
+    List<RefundDTO> getRefundByShiftReport(Long shiftReportId) throws Exception;
     List<RefundDTO> getRefundByCashierAndDateRange(String cashierId, LocalDateTime startDate, LocalDateTime endDate) throws Exception;
     List<RefundDTO> getRefundByBranch(Long branchId) throws Exception;
     RefundDTO getRefundById(Long refundId) throws Exception;

@@ -59,13 +59,13 @@ public class RefundServiceImpl implements RefundService {
     }
 
     @Override
-    public RefundDTO getRefundByCashId(String cashId) throws Exception {
-        return null;
+    public List<RefundDTO> getRefundByCashier(Long cashierId) throws Exception {
+        return refundRepository.findByCashierId(cashierId).stream().map(RefundMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
-    public RefundDTO getRefundByShiftReport(Long shiftReportId) throws Exception {
-        return null;
+    public List<RefundDTO> getRefundByShiftReport(Long shiftReportId) throws Exception {
+        return refundRepository.findByShiftReportId(shiftReportId).stream().map(RefundMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
