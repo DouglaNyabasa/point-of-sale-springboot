@@ -89,7 +89,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getOrderByCashier(Long cashierId) {
-        return List.of();
+        return orderRepository.findByCashierId(cashierId)
+                .stream()
+                .map(OrderMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
