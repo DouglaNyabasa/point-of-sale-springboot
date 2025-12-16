@@ -52,7 +52,7 @@ public class RefundController {
         return  ResponseEntity.ok(refund);
     }
 
-    @GetMapping("/cashier/{cashierId}")
+    @GetMapping("/cashier/{cashierId}/range")
     public ResponseEntity<List<RefundDTO>> getRefundByCashierAndDateRange(@PathVariable Long cashierId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) throws Exception {
         List<RefundDTO> refund = refundService.getRefundByCashierIdAndDateRange(cashierId,startDate,endDate);
         return  ResponseEntity.ok(refund);
