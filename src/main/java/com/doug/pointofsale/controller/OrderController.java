@@ -49,6 +49,13 @@ public class OrderController {
         return  ResponseEntity.ok(orderService.getTodayOrdersByCustomerId(id));
     }
 
+    @GetMapping("/recent/{branchId}")
+    public ResponseEntity<List<OrderDto>> getRecentOrder(@PathVariable Long branchId) throws Exception {
+        return  ResponseEntity.ok(orderService.getTop5RecentOrdersByBranchId(branchId));
+    }
+
+
+
 
 
 }
