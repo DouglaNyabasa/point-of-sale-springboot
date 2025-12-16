@@ -43,6 +43,7 @@ public class OrderServiceImpl implements OrderService {
         order.setCustomer(orderDto.getCustomer());
         order.setPaymentType(orderDto.getPaymentType());
 
+
         List<OrderItem> orderItems = orderDto.getItems()
                 .stream()
                 .map(

@@ -31,7 +31,7 @@ public class Order {
     @ManyToOne
     private Customer customer;
 
-    @OneToMany
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderItem> items;
 
 
