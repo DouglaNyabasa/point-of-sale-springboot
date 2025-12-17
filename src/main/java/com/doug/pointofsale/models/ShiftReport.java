@@ -24,7 +24,7 @@ public class ShiftReport {
     private Double totalSales;
     private Double totalRefunds;
     private Double netSales;
-    private Double totalOrders;
+    private int totalOrders;
 
     @ManyToOne
     private User cashier;
@@ -83,11 +83,11 @@ public class ShiftReport {
         this.netSales = netSales;
     }
 
-    public Double getTotalOrders() {
+    public int getTotalOrders() {
         return totalOrders;
     }
 
-    public void setTotalOrders(Double totalOrders) {
+    public void setTotalOrders(int totalOrders) {
         this.totalOrders = totalOrders;
     }
 

@@ -11,8 +11,10 @@ import com.doug.pointofsale.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ShiftReportImpl implements ShiftReportService {
@@ -74,8 +76,22 @@ public class ShiftReportImpl implements ShiftReportService {
                 .mapToDouble(Order::getTotalAmount).sum();
 
         int totalOrders = orders.size();
+
+        double netSales = totalSales - totalRefunds;
+        shiftReport.setTotalRefunds(totalRefunds);
+        shiftReport.setTotalSales(totalSales);
+        shiftReport.setTotalOrders(totalOrders);
+        shiftReport.setNetSales(netSales);
+        shiftReport.setRecentOrders(getRecentOrders(orders));
+        shiftReport.setTopSellingProducts(getTopSellingProducts(orders));
+        shiftReport.setPaymentSummaries(getPaymentSummaries(orders,totalSales));
+        shiftReport.setRefunds(refunds);
+
         return null;
+
     }
+
+
 
     @Override
     public ShiftReportDTO getShiftReportById(Long shiftReportId) {
@@ -105,5 +121,18 @@ public class ShiftReportImpl implements ShiftReportService {
     @Override
     public ShiftReportDTO getShiftByCashierAndDate(Long cashierId, LocalDateTime date) throws Exception {
         return null;
+    }
+
+    private List<PaymentSummary> getPaymentSummaries(List<Order> orders, double totalSales) {
+
+    }
+
+    private List<Product> getTopSellingProducts(List<Order> orders) {
+
+    }
+
+    private List<Order> getRecentOrders(List<Order> orders) {
+      return orders.stream().sorted(Comparator.comparing(Order::getCreatedAt).reversed())
+              .limit(5).collect(Collectors.toList());
     }
 }

@@ -14,7 +14,7 @@ public class ShiftReportDTO {
     private Double totalSales;
     private Double totalRefunds;
     private Double netSales;
-    private Double totalOrders;
+    private int totalOrders;
 
     private UserDTO cashier;
     private Long cashierId;
@@ -93,11 +93,11 @@ public class ShiftReportDTO {
         this.netSales = netSales;
     }
 
-    public Double getTotalOrders() {
+    public int getTotalOrders() {
         return totalOrders;
     }
 
-    public void setTotalOrders(Double totalOrders) {
+    public void setTotalOrders(int totalOrders) {
         this.totalOrders = totalOrders;
     }
 
