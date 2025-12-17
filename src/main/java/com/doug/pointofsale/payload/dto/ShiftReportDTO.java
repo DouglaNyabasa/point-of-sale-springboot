@@ -1,22 +1,12 @@
-package com.doug.pointofsale.models;
+package com.doug.pointofsale.payload.dto;
 
-
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import com.doug.pointofsale.models.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-@Table(name = "shiftReport")
-public class ShiftReport {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ShiftReportDTO {
+
     private Long id;
 
     private LocalDateTime shiftStart;
@@ -26,22 +16,42 @@ public class ShiftReport {
     private Double netSales;
     private Double totalOrders;
 
-    @ManyToOne
-    private User cashier;
+    private UserDTO cashier;
+    private Long cashierId;
+    private Long branchId;
+    private BranchDTO branch;
 
-    @ManyToOne
-    private Branch branch;
 
-    @Transient
     private List<PaymentSummary> paymentSummaries;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Product> topSellingProducts;
+    private List<ProductDTO> topSellingProducts;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Order> recentOrders;
-    @OneToMany(mappedBy = "shiftReport", cascade = CascadeType.ALL)
-    private List<Refund> refunds;
+    private List<OrderDto> recentOrders;
+    private List<RefundDTO> refunds;
+
+    public Long getCashierId() {
+        return cashierId;
+    }
+
+    public void setCashierId(Long cashierId) {
+        this.cashierId = cashierId;
+    }
+
+    public Long getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(Long branchId) {
+        this.branchId = branchId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public LocalDateTime getShiftStart() {
         return shiftStart;
@@ -91,19 +101,19 @@ public class ShiftReport {
         this.totalOrders = totalOrders;
     }
 
-    public User getCashier() {
+    public UserDTO getCashier() {
         return cashier;
     }
 
-    public void setCashier(User cashier) {
+    public void setCashier(UserDTO cashier) {
         this.cashier = cashier;
     }
 
-    public Branch getBranch() {
+    public BranchDTO getBranch() {
         return branch;
     }
 
-    public void setBranch(Branch branch) {
+    public void setBranch(BranchDTO branch) {
         this.branch = branch;
     }
 
@@ -115,35 +125,27 @@ public class ShiftReport {
         this.paymentSummaries = paymentSummaries;
     }
 
-    public List<Product> getTopSellingProducts() {
+    public List<ProductDTO> getTopSellingProducts() {
         return topSellingProducts;
     }
 
-    public void setTopSellingProducts(List<Product> topSellingProducts) {
+    public void setTopSellingProducts(List<ProductDTO> topSellingProducts) {
         this.topSellingProducts = topSellingProducts;
     }
 
-    public List<Order> getRecentOrders() {
+    public List<OrderDto> getRecentOrders() {
         return recentOrders;
     }
 
-    public void setRecentOrders(List<Order> recentOrders) {
+    public void setRecentOrders(List<OrderDto> recentOrders) {
         this.recentOrders = recentOrders;
     }
 
-    public List<Refund> getRefunds() {
+    public List<RefundDTO> getRefunds() {
         return refunds;
     }
 
-    public void setRefunds(List<Refund> refunds) {
+    public void setRefunds(List<RefundDTO> refunds) {
         this.refunds = refunds;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }
