@@ -11,9 +11,7 @@ import com.doug.pointofsale.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -128,7 +126,14 @@ public class ShiftReportImpl implements ShiftReportService {
     }
 
     private List<Product> getTopSellingProducts(List<Order> orders) {
-
+        Map<Product,Integer> productSalesMap = new HashMap<>();
+        for (Order order : orders) {
+            for (OrderItem item : order.getItems()) {
+                Product product = item.getProduct();
+                productSalesMap.put(product, productSalesMap.getOrDefault(product, 0) + item.getQuantity());
+            }
+        }
+        return productSalesMap.entrySet().stream().sorted((a,b)-> b.getValue().compareTo(a.getValue())).limit(5).map(Map.Entry::getKey).collect(Collectors.toList());
     }
 
     private List<Order> getRecentOrders(List<Order> orders) {
