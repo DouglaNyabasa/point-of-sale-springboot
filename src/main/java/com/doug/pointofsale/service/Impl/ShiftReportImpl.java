@@ -1,10 +1,10 @@
 package com.doug.pointofsale.service.Impl;
 
 import com.doug.pointofsale.mapper.ShiftReportMapper;
-import com.doug.pointofsale.models.Branch;
-import com.doug.pointofsale.models.ShiftReport;
-import com.doug.pointofsale.models.User;
+import com.doug.pointofsale.models.*;
 import com.doug.pointofsale.payload.dto.ShiftReportDTO;
+import com.doug.pointofsale.repository.OrderRepository;
+import com.doug.pointofsale.repository.RefundRepository;
 import com.doug.pointofsale.repository.ShiftReportRepository;
 import com.doug.pointofsale.service.ShiftReportService;
 import com.doug.pointofsale.service.UserService;
@@ -19,10 +19,14 @@ public class ShiftReportImpl implements ShiftReportService {
 
     private final ShiftReportRepository shiftReportRepository;
     private final UserService userService;
+    private final RefundRepository refundRepository;
+    private final OrderRepository orderRepository;
 
-    public ShiftReportImpl(ShiftReportRepository shiftReportRepository, UserService userService) {
+    public ShiftReportImpl(ShiftReportRepository shiftReportRepository, UserService userService, RefundRepository refundRepository, OrderRepository orderRepository) {
         this.shiftReportRepository = shiftReportRepository;
         this.userService = userService;
+        this.refundRepository = refundRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -50,6 +54,26 @@ public class ShiftReportImpl implements ShiftReportService {
 
     @Override
     public ShiftReportDTO endShift(Long shiftReportId, LocalDateTime shiftEnd) throws Exception {
+        User currentUser = userService.getCurrentUser();
+
+        ShiftReport shiftReport = shiftReportRepository.findTopByCashierAndShiftEndIsNullOrderByShiftStartDesc(currentUser).orElseThrow(
+                ()-> new Exception("Shift report not found"));
+
+        shiftReport.setShiftEnd(shiftEnd);
+        List<Refund> refunds = refundRepository.findByCashierIdAndCreatedAtBetween(
+
+             currentUser.getId(), shiftReport.getShiftStart(), shiftReport.getShiftEnd()
+        );
+        double totalRefunds = refunds.stream()
+                .mapToDouble(refund -> refund.getAmount() != null ? refund.getAmount() : 0.0).sum();
+
+        List<Order> orders = orderRepository.findByCashierAndCreatedAtBetween(
+                currentUser,shiftReport.getShiftStart(),shiftReport.getShiftEnd()
+        );
+        double totalSales = orders.stream()
+                .mapToDouble(Order::getTotalAmount).sum();
+
+        int totalOrders = orders.size();
         return null;
     }
 
