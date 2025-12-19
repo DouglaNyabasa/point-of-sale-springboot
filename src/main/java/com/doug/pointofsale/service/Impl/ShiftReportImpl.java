@@ -117,7 +117,8 @@ public class ShiftReportImpl implements ShiftReportService {
 
     @Override
     public List<ShiftReportDTO> getShiftReportsByCashierId(Long cashierId) {
-        return List.of();
+        List<ShiftReport> reports = shiftReportRepository.findByCashierId(cashierId);
+        return reports.stream().map(ShiftReportMapper::toDTO).collect(Collectors.toList()) ;
     }
 
     @Override
