@@ -1,5 +1,6 @@
 package com.doug.pointofsale.service.Impl;
 
+import com.doug.pointofsale.domain.PaymentType;
 import com.doug.pointofsale.mapper.ShiftReportMapper;
 import com.doug.pointofsale.models.*;
 import com.doug.pointofsale.payload.dto.ShiftReportDTO;
@@ -122,6 +123,12 @@ public class ShiftReportImpl implements ShiftReportService {
     }
 
     private List<PaymentSummary> getPaymentSummaries(List<Order> orders, double totalSales) {
+        Map<PaymentType,List<Order>> grouped = orders.stream().collect(Collectors.groupingBy(order -> order.getPaymentType()!= null? order.getPaymentType(): PaymentType.CASH));
+        List<PaymentSummary> summaries = new ArrayList<>();
+        for (Map.Entry<PaymentType,List<Order>> entry : grouped.entrySet()) {
+            double amount = entry.getValue().stream()
+                    .mapToDouble(Order::getTotalAmount).sum();
+        }
 
     }
 
