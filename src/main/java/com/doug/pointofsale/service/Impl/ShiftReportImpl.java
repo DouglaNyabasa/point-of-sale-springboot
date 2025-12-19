@@ -123,7 +123,40 @@ public class ShiftReportImpl implements ShiftReportService {
 
     @Override
     public ShiftReportDTO getCurrentShiftReportsProgress(Long cashierId) throws Exception {
-        return null;
+        User currentUser = userService.getCurrentUser();
+        ShiftReport shiftReport = shiftReportRepository.findTopByCashierAndShiftEndIsNullOrderByShiftStartDesc(currentUser).orElseThrow(
+                ()-> new Exception("no active Shift found for this cashier")
+        );
+        LocalDateTime now = LocalDateTime.now();
+        List<Order> orders = orderRepository.findByCashierAndCreatedAtBetween(
+                currentUser, shiftReport.getShiftStart(), now
+        );
+
+        List<Refund> refunds = refundRepository.findByCashierIdAndCreatedAtBetween(
+
+                currentUser.getId(), shiftReport.getShiftStart(), shiftReport.getShiftEnd()
+        );
+        double totalRefunds = refunds.stream()
+                .mapToDouble(refund -> refund.getAmount() != null ? refund.getAmount() : 0.0).sum();
+
+
+        double totalSales = orders.stream()
+                .mapToDouble(Order::getTotalAmount).sum();
+
+        int totalOrders = orders.size();
+
+        double netSales = totalSales - totalRefunds;
+        shiftReport.setTotalRefunds(totalRefunds);
+        shiftReport.setTotalSales(totalSales);
+        shiftReport.setTotalOrders(totalOrders);
+        shiftReport.setNetSales(netSales);
+        shiftReport.setRecentOrders(getRecentOrders(orders));
+        shiftReport.setTopSellingProducts(getTopSellingProducts(orders));
+        shiftReport.setPaymentSummaries(getPaymentSummaries(orders,totalSales));
+        shiftReport.setRefunds(refunds);
+        ShiftReport savedReport = shiftReportRepository.save(shiftReport);
+
+        return ShiftReportMapper.toDTO(savedReport);
     }
 
     @Override
