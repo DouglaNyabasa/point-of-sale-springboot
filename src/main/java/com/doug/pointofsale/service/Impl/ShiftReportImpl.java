@@ -94,13 +94,19 @@ public class ShiftReportImpl implements ShiftReportService {
 
 
     @Override
-    public ShiftReportDTO getShiftReportById(Long shiftReportId) {
-        return null;
+    public ShiftReportDTO getShiftReportById(Long id) throws Exception {
+
+        return shiftReportRepository.findById(id).map(
+                ShiftReportMapper::toDTO
+        ).orElseThrow(
+                ()-> new Exception("Shift report not found with given id" + id)
+        );
     }
 
     @Override
     public List<ShiftReportDTO> getAllShiftReports() {
-        return List.of();
+        List<ShiftReport> reports = shiftReportRepository.findAll();
+        return reports.stream().map(ShiftReportMapper::toDTO).collect(Collectors.toList()) ;
     }
 
     @Override
