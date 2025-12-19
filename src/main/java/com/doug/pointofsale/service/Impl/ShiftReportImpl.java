@@ -7,6 +7,7 @@ import com.doug.pointofsale.payload.dto.ShiftReportDTO;
 import com.doug.pointofsale.repository.OrderRepository;
 import com.doug.pointofsale.repository.RefundRepository;
 import com.doug.pointofsale.repository.ShiftReportRepository;
+import com.doug.pointofsale.repository.UserRepository;
 import com.doug.pointofsale.service.ShiftReportService;
 import com.doug.pointofsale.service.UserService;
 import org.springframework.stereotype.Service;
@@ -22,12 +23,14 @@ public class ShiftReportImpl implements ShiftReportService {
     private final UserService userService;
     private final RefundRepository refundRepository;
     private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
 
-    public ShiftReportImpl(ShiftReportRepository shiftReportRepository, UserService userService, RefundRepository refundRepository, OrderRepository orderRepository) {
+    public ShiftReportImpl(ShiftReportRepository shiftReportRepository, UserService userService, RefundRepository refundRepository, OrderRepository orderRepository, UserRepository userRepository) {
         this.shiftReportRepository = shiftReportRepository;
         this.userService = userService;
         this.refundRepository = refundRepository;
         this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -161,7 +164,18 @@ public class ShiftReportImpl implements ShiftReportService {
 
     @Override
     public ShiftReportDTO getShiftByCashierAndDate(Long cashierId, LocalDateTime date) throws Exception {
-        return null;
+
+        User cashier = userRepository.findById(cashierId).orElseThrow(
+                ()-> new Exception("cashier not found with given id" + cashierId)
+        );
+        LocalDateTime start = date.withHour(0).withMinute(0).withSecond(0);
+        LocalDateTime end = date.withHour(23).withMinute(59).withSecond(59);
+        ShiftReport report = shiftReportRepository.findTopByCashierAndShiftStartBetween(
+                cashier,start,end
+        ).orElseThrow(
+                ()-> new Exception("no active Shift found for this cashier")
+        );
+        return ShiftReportMapper.toDTO(report);
     }
 
     private List<PaymentSummary> getPaymentSummaries(List<Order> orders, double totalSales) {
