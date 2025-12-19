@@ -85,8 +85,9 @@ public class ShiftReportImpl implements ShiftReportService {
         shiftReport.setTopSellingProducts(getTopSellingProducts(orders));
         shiftReport.setPaymentSummaries(getPaymentSummaries(orders,totalSales));
         shiftReport.setRefunds(refunds);
+        ShiftReport savedReport = shiftReportRepository.save(shiftReport);
 
-        return null;
+        return ShiftReportMapper.toDTO(savedReport);
 
     }
 
@@ -128,7 +129,17 @@ public class ShiftReportImpl implements ShiftReportService {
         for (Map.Entry<PaymentType,List<Order>> entry : grouped.entrySet()) {
             double amount = entry.getValue().stream()
                     .mapToDouble(Order::getTotalAmount).sum();
+            int transactions = entry.getValue().size();
+            double percentage = (amount / totalSales) * 100;
+            PaymentSummary ps = new PaymentSummary();
+            ps.setType(entry.getKey());
+            ps.setTotalAmount(amount);
+            ps.setPercentage(percentage);
+            ps.setTransactionCount(transactions);
+            summaries.add(ps);
         }
+        return summaries;
+
 
     }
 
