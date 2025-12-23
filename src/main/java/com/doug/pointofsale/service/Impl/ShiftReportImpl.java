@@ -34,9 +34,9 @@ public class ShiftReportImpl implements ShiftReportService {
     }
 
     @Override
-    public ShiftReportDTO startShift(Long cashierId, Long branchId, LocalDateTime shiftStart) throws Exception {
+    public ShiftReportDTO startShift() throws Exception {
         User currentUser = userService.getCurrentUser();
-        shiftStart = LocalDateTime.now();
+        LocalDateTime shiftStart = LocalDateTime.now();
         LocalDateTime startOfDay = shiftStart.withHour(0).withMinute(0).withSecond(0);
         LocalDateTime endOfDay = shiftStart.withHour(23).withMinute(59).withSecond(59);
         Optional<ShiftReport> existing = shiftReportRepository.findTopByCashierAndShiftStartBetween(
