@@ -70,6 +70,15 @@ public class ShiftController {
     }
 
 
+    @GetMapping("/{id}")
+    public ResponseEntity< ShiftReportDTO> getShiftReportById(@PathVariable Long id) throws Exception {
+        return ResponseEntity.ok(
+
+                shiftReportService.getShiftReportById(id)
+        );
+    }
+
+
 
 
 
