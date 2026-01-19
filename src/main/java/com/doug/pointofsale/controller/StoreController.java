@@ -11,6 +11,8 @@ import com.doug.pointofsale.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -28,6 +30,8 @@ public class StoreController {
     @PostMapping("/create")
     public ResponseEntity<StoreDTO> createStore(@RequestBody StoreDTO storeDTO, @RequestHeader("Authorization") String jwt) throws UserException {
         User user = userService.getUserFromJwtToken(jwt);
+
+
         return ResponseEntity.ok(storeService.createStore(storeDTO, user));
 
     }
