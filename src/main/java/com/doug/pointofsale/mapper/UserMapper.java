@@ -15,6 +15,9 @@ public class UserMapper {
         userDto.setPhoneNumber(String.valueOf(savedUser.getPhoneNumber()));
         userDto.setBranchId(savedUser.getBranch() != null ? savedUser.getBranch().getId(): null);
         userDto.setStoreId(savedUser.getStore() != null ? savedUser.getStore().getId() : null);
+        userDto.setCreatedAt(savedUser.getCreatedAt());
+        userDto.setUpdatedAt(savedUser.getUpdatedAt());
+        userDto.setLastLoginAt(savedUser.getLastLoginAt());
         return userDto;
     }
 

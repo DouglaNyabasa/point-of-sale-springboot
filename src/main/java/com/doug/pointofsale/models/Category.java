@@ -17,6 +17,7 @@ public class Category {
     private Store store;
 
 
+
     public Category( Store store,String name) {
         this.store = store;
         this.name = name;
@@ -25,6 +26,8 @@ public class Category {
     public Category() {
 
     }
+
+
 
 
     public Long getId() {
