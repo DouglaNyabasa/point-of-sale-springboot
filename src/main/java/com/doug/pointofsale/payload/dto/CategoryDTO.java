@@ -10,6 +10,7 @@ public class CategoryDTO {
     private Long storeId;
 
     public CategoryDTO(Long id, String name, Long storeId) {
+        this.id = id;
         this.name = name;
         this.storeId = storeId;
     }
