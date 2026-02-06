@@ -32,7 +32,7 @@ public class ProductController {
     }
 
     @GetMapping("/store/{storeId}")
-    public ResponseEntity<List<ProductDTO>> getByStoreId(@PathVariable Long storeId, @RequestBody ProductDTO productDTO, @RequestHeader("Authorization") String jwt) throws Exception {
+    public ResponseEntity<List<ProductDTO>> getByStoreId(@PathVariable Long storeId, @RequestHeader("Authorization") String jwt) throws Exception {
 
         return ResponseEntity.ok(productService.getAllProductsByStoreId(storeId));
 
