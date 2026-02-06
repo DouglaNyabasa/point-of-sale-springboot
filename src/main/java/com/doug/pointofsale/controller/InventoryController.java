@@ -44,7 +44,7 @@ public class InventoryController {
 
     }
 
-    @PostMapping("/branch/{branchId}")
+    @GetMapping("/branch/{branchId}")
     public ResponseEntity<List<InventoryDTO>> getInventoryByBranch(@PathVariable Long branchId) throws Exception {
         return ResponseEntity.ok(inventoryService.getAllInventoryByBranchId(branchId));
 
