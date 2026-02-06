@@ -37,6 +37,8 @@ public class InventoryServiceImpl implements InventoryService {
                 ()-> new Exception("product does not exist !!!!")
         );
         Inventory inventory = InventoryMapper.toEntity(inventoryDTO, branch, product);
+        // remove this line if it causes problems
+        inventory.setQuantity(inventoryDTO.getQuantity());
         Inventory  savedInventory = inventoryRepository.save(inventory);
         return InventoryMapper.toDTO(savedInventory);
     }
