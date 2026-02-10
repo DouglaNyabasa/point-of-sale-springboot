@@ -12,6 +12,7 @@ public class OrderMapper {
         orderDto.setTotalAmount(order.getTotalAmount());
         orderDto.setBranchId(order.getBranch().getId());
         orderDto.setCustomerId(order.getCustomer().getId());
+        orderDto.setCashier(UserMapper.toDTO(order.getCashier()));
         orderDto.setPaymentType(order.getPaymentType());
         orderDto.setCreatedAt(order.getCreatedAt());
         orderDto.setItems(order.getItems()
