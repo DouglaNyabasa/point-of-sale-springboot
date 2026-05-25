@@ -33,7 +33,7 @@ public class ShiftReport {
     private Branch branch;
 
     @Transient
-    private List<PaymentSummary> paymentSummaries;
+    private List<PaymentEntity> paymentSummaries;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Product> topSellingProducts;
@@ -107,11 +107,11 @@ public class ShiftReport {
         this.branch = branch;
     }
 
-    public List<PaymentSummary> getPaymentSummaries() {
+    public List<PaymentEntity> getPaymentSummaries() {
         return paymentSummaries;
     }
 
-    public void setPaymentSummaries(List<PaymentSummary> paymentSummaries) {
+    public void setPaymentSummaries(List<PaymentEntity> paymentSummaries) {
         this.paymentSummaries = paymentSummaries;
     }
 

@@ -178,15 +178,15 @@ public class ShiftReportImpl implements ShiftReportService {
         return ShiftReportMapper.toDTO(report);
     }
 
-    private List<PaymentSummary> getPaymentSummaries(List<Order> orders, double totalSales) {
+    private List<PaymentEntity> getPaymentSummaries(List<Order> orders, double totalSales) {
         Map<PaymentType,List<Order>> grouped = orders.stream().collect(Collectors.groupingBy(order -> order.getPaymentType()!= null? order.getPaymentType(): PaymentType.CASH));
-        List<PaymentSummary> summaries = new ArrayList<>();
+        List<PaymentEntity> summaries = new ArrayList<>();
         for (Map.Entry<PaymentType,List<Order>> entry : grouped.entrySet()) {
             double amount = entry.getValue().stream()
                     .mapToDouble(Order::getTotalAmount).sum();
             int transactions = entry.getValue().size();
             double percentage = (amount / totalSales) * 100;
-            PaymentSummary ps = new PaymentSummary();
+            PaymentEntity ps = new PaymentEntity();
             ps.setType(entry.getKey());
             ps.setTotalAmount(amount);
             ps.setPercentage(percentage);
