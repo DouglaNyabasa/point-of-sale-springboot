@@ -4,6 +4,8 @@ import com.doug.pointofsale.domain.PaymentType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Builder
@@ -16,7 +18,7 @@ public class PaymentRequest {
 
     @Schema(description = "Unique ID of the paying user", example = "1")
     Long userId;
-    LocalDateTime bookingDate;
+    LocalDateTime orderDate;
     @Schema(example = "doug@example.com")
     String email;
     @Schema(
@@ -25,5 +27,7 @@ public class PaymentRequest {
             description = "Selected payment type"
     )
     PaymentType paymentType;
+    BigDecimal amount;
+    String description;
 }
 

@@ -22,7 +22,7 @@ public class ShiftReportDTO {
     private BranchDTO branch;
 
 
-    private List<PaymentEntity> paymentSummaries;
+    private List<PaymentSummary> paymentSummaries;
 
     private List<ProductDTO> topSellingProducts;
 
@@ -117,11 +117,11 @@ public class ShiftReportDTO {
         this.branch = branch;
     }
 
-    public List<PaymentEntity> getPaymentSummaries() {
+    public List<PaymentSummary> getPaymentSummaries() {
         return paymentSummaries;
     }
 
-    public void setPaymentSummaries(List<PaymentEntity> paymentSummaries) {
+    public void setPaymentSummaries(List<PaymentSummary> paymentSummaries) {
         this.paymentSummaries = paymentSummaries;
     }
 

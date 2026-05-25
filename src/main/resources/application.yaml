@@ -1,14 +1,24 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/posdb
-    username: postgres
-    password: ADMIN
+    url: ${DB_URL}
+    username: ${DB_CONNECTION_USERNAME}
+    password: ${DB_CONNECTION_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
+
+
+paynow:
+  integration:
+    id:  ${PAY_NOW_ID}
+    key: ${PAY_NOW_KEY}
+  result:
+    url: ${PAY_NOW_RESULT_URL}
+  return:
+    url: ${PAY_NOW_RETURN_URL}

@@ -14,10 +14,5 @@ public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
     Optional<PaymentEntity> findByInvoiceNumber(String invoiceNumber);
 
-    Optional<PaymentEntity> findFirstByUserAndStatusAndExpiryDateAfter(
-            User user, String status, LocalDateTime dateTime);
 
-    @Query("SELECT new com.pointofsale.dto.response.PaymentStatusDto(p.user.id, p.status, p.amount, p.paidAt, p.expiryDate) " +
-            "FROM PaymentEntity p WHERE p.user.id = :userId ORDER BY p.paidAt DESC LIMIT 1")
-    PaymentStatusDto findStatusAndExpiryDateByUserId(@Param("userId") Long userId);
 }

@@ -13,5 +13,4 @@ public class PaymentResponse {
     String pollUrl;
     String invoiceNumber;
     String message;
-
 }

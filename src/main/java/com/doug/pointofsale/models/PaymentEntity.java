@@ -33,20 +33,11 @@ public class PaymentEntity {
      String cartDescription;
      @Enumerated(EnumType.STRING)
      PaymentType type;
-
-
      @ManyToOne
      @JoinColumn(name = "user_id", nullable = false)
      User user;
-
      LocalDateTime paidAt;
-     LocalDateTime expiryDate;
-
      @Builder.Default
      @OneToMany(mappedBy = "paymentEntity", cascade = CascadeType.ALL, orphanRemoval = true)
      List<PaymentItem> items = new ArrayList<>();
-
-
-
-
 }
